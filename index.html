@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kutti ❤️</title>
+<style>
+:root{
+  --bg:#07080d;
+  --pink:#ff2d91;
+  --pink2:#ff5cab;
+  --cream:#fff5df;
+  --ink:#5b4550;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  background:#000;color:#fff;
+  font-family:Georgia,"Times New Roman",serif;
+  -webkit-font-smoothing:antialiased;
+}
+#app{
+  position:relative;width:100%;height:100dvh;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(55,61,91,.18),transparent 45%),
+    #07080d;
+}
+#stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.star{
+  position:absolute;width:1px;height:1px;border-radius:50%;
+  background:#fff;opacity:.55;
+  animation:blink var(--d) ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:.12}50%{opacity:.9}}
+
+.scene{
+  position:absolute;inset:0;display:grid;place-items:center;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .55s ease,transform .65s ease;
+  transform:scale(1.025);
+}
+.scene.active{opacity:1;visibility:visible;pointer-events:auto;transform:scale(1)}
+.scene.fade-out{opacity:0;transform:scale(.98)}
+
+.top-url{
+  position:absolute;top:max(9px,env(safe-area-inset-top));left:0;right:0;
+  text-align:center;font:700 7px/1 Arial,sans-serif;
+  letter-spacing:.2px;color:#fff;opacity:.88;z-index:10;
+}
+.content{width:min(560px,92vw);text-align:center;position:relative;z-index:2}
+
+/* opening */
+.opening{background:#07080d}
+.matrix{
+  position:absolute;inset:0;overflow:hidden;
+  background:linear-gradient(#090a10,#06070b);
+}
+.rain-col{
+  position:absolute;top:-110%;width:9px;
+  color:#ff3eaa;font:700 11px/1.05 "Courier New",monospace;
+  text-shadow:0 0 8px #ff238e,0 0 15px rgba(255,35,142,.45);
+  opacity:.86;white-space:pre-wrap;
+  animation:rain var(--fall) linear infinite;
+}
+@keyframes rain{to{transform:translateY(220vh)}}
+.count{
+  font:800 clamp(80px,22vw,145px)/1 Arial,sans-serif;
+  color:#fff;text-shadow:0 0 22px rgba(255,63,173,.9);
+}
+.word{
+  font:800 clamp(44px,13vw,82px)/.95 Arial,sans-serif;
+  color:#fff;text-shadow:0 0 20px #ff39a0,0 0 45px rgba(255,20,125,.45);
+}
+.word.kutti{color:#ff72ba}
+.pulse{animation:pulse .7s both}
+@keyframes pulse{0%{opacity:0;transform:scale(.55)}65%{opacity:1;transform:scale(1.08)}100%{transform:scale(1)}}
+
+/* star character section */
+.hero-star{
+  width:min(300px,65vw);margin:auto;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.16));
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-8px)}}
+.hero-title{font-size:18px;margin-top:12px;color:#fff}
+.hero-sub{font:11px Arial,sans-serif;color:#c9cad2;margin-top:8px}
+
+/* card */
+.card-wrap{position:relative;width:min(240px,62vw);height:min(320px,67vh);margin:auto}
+.card{
+  position:absolute;inset:0;background:#fff7e6;border-radius:2px;
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  transform-origin:50% 100%;
+  overflow:hidden;
+}
+.card:before{
+  content:"";position:absolute;left:12%;right:12%;top:13%;
+  height:1px;background:#e7d9bd;
+}
+.card-heart{
+  position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);
+  color:#ef4a45;font-size:43px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.1));
+}
+.hand{
+  position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);
+  width:145px;height:95px;z-index:4;
+}
+.hand:before,.hand:after{
+  content:"";position:absolute;background:#f4c79f;border:2px solid #c88f68;
+  box-shadow:0 3px 0 rgba(0,0,0,.08);
+}
+.hand:before{
+  width:68px;height:82px;left:17px;bottom:0;border-radius:45% 40% 25% 25%;
+  transform:rotate(-9deg);
+}
+.hand:after{
+  width:68px;height:82px;right:17px;bottom:0;border-radius:40% 45% 25% 25%;
+  transform:rotate(9deg);
+}
+.hand-heart{
+  position:absolute;z-index:5;left:50%;bottom:47px;transform:translateX(-50%);
+  color:#e94945;font-size:28px;
+}
+.card.opening{animation:cardOpen 1.5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cardOpen{
+  0%{transform:translateY(50px) scale(.82) rotate(-3deg);opacity:0}
+  55%{transform:translateY(0) scale(1.03) rotate(1deg);opacity:1}
+  100%{transform:translateY(0) scale(1) rotate(0);opacity:1}
+}
+
+/* memory page */
+.memory{
+  width:min(640px,94vw);
+  padding-top:35px;
+}
+.message{
+  width:100%;min-height:70px;padding:16px 26px;
+  border-radius:10px;background:var(--cream);color:var(--ink);
+  box-shadow:0 8px 24px rgba(0,0,0,.24);
+  font:italic 13px/1.45 Georgia,serif;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.message:after{
+  content:"♥";position:absolute;right:10px;top:7px;
+  color:#ed5189;font-style:normal;font-size:11px;
+}
+.photos{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:7px;margin-top:10px;
+}
+.photo{
+  aspect-ratio:1.12/1;border-radius:3px;overflow:hidden;
+  background:#1c1d24;box-shadow:0 4px 12px rgba(0,0,0,.25);
+  transform:translateY(10px);opacity:0;
+}
+.photo.show{animation:photoIn .8s cubic-bezier(.2,.8,.2,1) forwards}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes photoIn{
+  to{transform:translateY(0);opacity:1}
+}
+
+/* final movie-roll page */
+.movie-stage{
+  width:100%;
+  height:min(560px,82vh);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.movie-title{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  z-index:20;
+  width:100%;
+  text-align:center;
+  pointer-events:none;
+}
+.movie-title h1{
+  margin:0;
+  font:800 clamp(34px,9vw,72px)/.92 Arial,sans-serif;
+  letter-spacing:1px;
+  text-shadow:0 0 20px #ff39a0,0 0 45px rgba(255,20,125,.6);
+}
+.movie-title h2{
+  margin:10px 0 0;
+  font:800 clamp(22px,6vw,40px)/1 Arial,sans-serif;
+  color:#ff72ba;
+  text-shadow:0 0 20px #ff39a0;
+}
+.movie-title p{
+  margin:9px 0 0;
+  font:italic 13px Georgia,serif;
+  color:#ddd;
+}
+.film-row{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:150px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);
+  -webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);
+}
+.film-row.top{top:8%}
+.film-row.bottom{bottom:8%}
+.film-track{
+  display:flex;
+  width:max-content;
+  gap:12px;
+  align-items:center;
+  will-change:transform;
+  animation:movieLeft 42s linear infinite;
+}
+.film-row.bottom .film-track{
+  animation:movieRight 46s linear infinite;
+}
+@keyframes movieLeft{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+@keyframes movieRight{
+  from{transform:translateX(-50%)}
+  to{transform:translateX(0)}
+}
+.film-photo{
+  width:112px;
+  height:122px;
+  flex:0 0 112px;
+  padding:5px 5px 17px;
+  background:#fff5df;
+  box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 12px rgba(255,50,160,.28);
+  transform:rotate(var(--r));
+}
+.film-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.film-holes{
+  position:absolute;
+  left:0;right:0;
+  height:9px;
+  z-index:5;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0 10px,
+    rgba(0,0,0,.72) 10px 22px,
+    transparent 22px 32px
+  );
+}
+.film-holes.top{top:0}
+.film-holes.bottom{bottom:0}
+.movie-glow{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:min(75vw,650px);
+  height:260px;
+  border-radius:50%;
+  background:rgba(255,45,145,.08);
+  filter:blur(45px);
+  z-index:1;
+  pointer-events:none;
+}
+@media(max-width:520px){
+  .movie-stage{height:440px}
+  .film-row{height:105px}
+  .film-row.top{top:12%}
+  .film-row.bottom{bottom:12%}
+  .film-photo{
+    width:82px;height:88px;flex-basis:82px;
+    padding:4px 4px 13px;
+  }
+  .film-track{gap:9px}
+  .movie-title h1{font-size:clamp(32px,11vw,52px)}
+}
+/* floating tiny hearts */
+.float-heart{
+  position:absolute;bottom:-30px;color:#ff4fa6;font-size:12px;
+  animation:up var(--t) linear forwards;opacity:0;pointer-events:none;
+}
+@keyframes up{
+  10%{opacity:.85}100%{opacity:0;transform:translateY(-110vh) translateX(var(--x)) rotate(35deg)}
+}
+
+.skip{
+  position:absolute;right:13px;bottom:12px;z-index:50;
+  border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.25);
+  color:#aaa;border-radius:99px;padding:6px 9px;font:9px Arial,sans-serif;
+}
+
+/* responsive */
+@media(max-width:520px){
+  .message{font-size:12px;min-height:64px;padding:14px 22px}
+  .photo-heart-grid{width:min(360px,90vw);transform:scale(.76)}
+  .photo-heart-grid.ready{transform:scale(.96)}
+  .collage-stage{height:440px}
+  .card-wrap{height:285px}
+}
+</style>
+</head>
+<body>
+  <body>
+
+<audio id="birthdayMusic" loop>
+  <source src="1mp3.mpeg" type="audio/mpeg">
+</audio>
+
+<!-- your existing code continues here -->
+<div id="app">
+  <div id="stars"></div>
+
+  <!-- 1: MATRIX COUNTDOWN + NAME REVEAL -->
+  <section class="scene active" id="s0">
+    <div class="matrix" id="matrix"></div>
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content">
+      <div id="count" class="count">3</div>
+      <div id="reveal" class="word" style="display:none"></div>
+    </div>
+  </section>
+
+  <!-- 2: STARFIELD CHARACTER -->
+  <section class="scene" id="s1">
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content">
+      <div class="hero-star">
+        <svg viewBox="0 0 300 260" width="100%" aria-label="birthday illustration">
+          <defs>
+            <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g filter="url(#glow)">
+            <text x="150" y="50" text-anchor="middle" fill="#ffe94d" font-size="32" font-family="Arial" font-weight="900">HAPPY</text>
+            <text x="150" y="83" text-anchor="middle" fill="#ff5eb0" font-size="28" font-family="Arial" font-weight="900">BIRTHDAY</text>
+            <path d="M95 105 C110 85 190 85 205 105 L196 122 C180 112 120 112 104 122Z" fill="#ffd94d"/>
+            <circle cx="150" cy="154" r="45" fill="#f5d6bb"/>
+            <circle cx="133" cy="151" r="4" fill="#28232a"/><circle cx="167" cy="151" r="4" fill="#28232a"/>
+            <path d="M137 174 Q150 184 163 174" fill="none" stroke="#c36c72" stroke-width="4" stroke-linecap="round"/>
+            <path d="M112 139 Q125 120 140 132 M188 139 Q175 120 160 132" fill="none" stroke="#8a5c46" stroke-width="8" stroke-linecap="round"/>
+            <path d="M112 204 Q150 181 188 204 L198 239 L102 239Z" fill="#7f69df"/>
+            <text x="150" y="232" text-anchor="middle" fill="#fff" font-size="16" font-family="Arial" font-weight="700">KUTTI</text>
+            <path d="M88 238 Q150 210 212 238" fill="none" stroke="#ffcc45" stroke-width="8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="hero-title">A tiny surprise, made just for you ❤️</div>
+      <div class="hero-sub">tap anywhere to continue</div>
+    </div>
+  </section>
+
+  <!-- 3: CARD / HAND -->
+  <section class="scene" id="s2">
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content">
+      <div class="card-wrap">
+        <div class="card opening" id="card" >
+          <div class="card-heart">♥</div>
+          <div class="hand"></div>
+          <div class="hand-heart">♥</div>
+        </div>
+      </div>
+      <div style="font:10px Arial;color:#b9bbc5;margin-top:12px">tap the heart</div>
+    </div>
+  </section>
+
+  <!-- 4: FIRST MEMORY -->
+  <section class="scene" id="s3">
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content memory">
+      <div class="message">Happy Birthday kutti❤️</div>
+      <div class="photos">
+        <div class="photo"><img src="14.jpeg"></div>
+        <div class="photo"><img src="15.jpeg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5: SECOND MEMORY -->
+  <section class="scene" id="s4">
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content memory">
+      <div class="message">As long as you're smiling, I'm happy. Stay happy, kutti ❤️</div>
+      <div class="photos">
+        <div class="photo"><img src="4.jpeg"></div>
+        <div class="photo"><img src="6.jpeg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: CARD TRANSITION -->
+  <section class="scene" id="s5">
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content">
+      <div class="card-wrap">
+        <div class="card closed" id="card2">
+          <div class="card-heart">♥</div>
+          <div class="hand"></div>
+          <div class="hand-heart">♥</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7: MOVIE ROLL -->
+  <section class="scene" id="s6">
+    <div class="top-url">kutti-birthday.vercel.app</div>
+    <div class="content">
+      <div class="movie-stage">
+        <div class="movie-glow"></div>
+
+        <div class="film-row top">
+          <div class="film-holes top"></div>
+          <div class="film-track" id="filmTop"></div>
+        </div>
+
+        <div class="film-row bottom">
+          <div class="film-holes bottom"></div>
+          <div class="film-track" id="filmBottom"></div>
+        </div>
+
+        <div class="movie-title">
+          <h1>HAPPY<br>BIRTHDAY</h1>
+          <h2>KUTTI ❤️</h2>
+          <p>Every picture is a memory ✨</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <button class="skip" id="skip">Replay</button>
+</div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const scenes = [...document.querySelectorAll('.scene')];
+  let current = 0;
+  let timer = null;
+  let started = false;
+
+  /* Stars */
+  const stars = $('#stars');
+  for(let i=0;i<150;i++){
+    const s=document.createElement('i');
+    s.className='star';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.top=(Math.random()*100)+'%';
+    s.style.opacity=(.15+Math.random()*.7);
+    s.style.setProperty('--d',(1.4+Math.random()*3.4)+'s');
+    s.style.animationDelay=(Math.random()*3)+'s';
+    stars.appendChild(s);
+  }
+
+  /* Pink Matrix */
+  const matrix=$('#matrix');
+  const chars='01{}[]<>/\\\\|+*#@$%KUTTI♥';
+  for(let i=0;i<95;i++){
+    const c=document.createElement('div');
+    c.className='rain-col';
+    c.style.left=(Math.random()*100)+'%';
+    c.style.setProperty('--fall',(2.2+Math.random()*3.2)+'s');
+    c.style.animationDelay=(-Math.random()*5)+'s';
+    c.style.opacity=(.25+Math.random()*.7);
+    let str='';
+    const len=18+Math.floor(Math.random()*42);
+    for(let j=0;j<len;j++) str+=chars[Math.floor(Math.random()*chars.length)]+'\n';
+    c.textContent=str;
+    matrix.appendChild(c);
+  }
+
+  function floatingHearts(){
+    for(let i=0;i<4;i++){
+      const h=document.createElement('span');
+      h.className='float-heart';
+      h.textContent=Math.random()>.3?'♥':'♡';
+      h.style.left=(5+Math.random()*90)+'%';
+      h.style.setProperty('--t',(4+Math.random()*4)+'s');
+      h.style.setProperty('--x',(-45+Math.random()*90)+'px');
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),8500);
+    }
+  }
+
+  function show(n){
+    if(n<0||n>=scenes.length)return;
+    scenes.forEach((s,i)=>s.classList.toggle('active',i===n));
+    current=n;
+    if(n===3||n===4){
+      document.querySelectorAll('#s3 .photo,#s4 .photo').forEach((p,i)=>{
+        p.classList.remove('show');
+        setTimeout(()=>p.classList.add('show'),160+i*180);
+      });
+    }
+    if(n===6) buildCollage();
+    floatingHearts();
+  }
+
+  function buildCollage(){
+    const top=$('#filmTop');
+    const bottom=$('#filmBottom');
+    if(top.dataset.built)return;
+    top.dataset.built='1';
+
+    const imgs=[
+      '1.jpeg','2.jpeg','3.jpeg','4.jpeg','5.jpeg',
+      '6.jpeg','7.jpeg','8.jpeg','9.jpeg','10.jpeg',
+      '11.jpeg','12.jpeg','13.jpeg','14.jpeg','15.jpeg'
+    ];
+
+    function addPhoto(track,src,index){
+      const frame=document.createElement('div');
+      frame.className='film-photo';
+      frame.style.setProperty('--r', index%2===0 ? '-2deg' : '2deg');
+
+      const img=document.createElement('img');
+      img.src=src;
+      img.alt='Memory photo';
+
+      frame.appendChild(img);
+      track.appendChild(frame);
+    }
+
+    /*
+      Duplicate each row so the film keeps moving continuously.
+      Top moves left, bottom moves right.
+      This changes only the final page; all previous scenes remain untouched.
+    */
+    for(let repeat=0;repeat<2;repeat++){
+      imgs.forEach((src,i)=>addPhoto(top,src,i));
+      [...imgs].reverse().forEach((src,i)=>addPhoto(bottom,src,i));
+    }
+  }
+
+  function runTimeline(){
+    clearTimeout(timer);
+    if(current===0){
+      const count=$('#count'), reveal=$('#reveal');
+      count.style.display='block'; reveal.style.display='none';
+      let n=3; count.textContent=n;
+      const tick=()=>{
+        n--;
+        if(n>=1){
+          count.textContent=n;
+          count.classList.remove('pulse'); void count.offsetWidth; count.classList.add('pulse');
+          timer=setTimeout(tick,850);
+        }else{
+          count.style.display='none';
+          reveal.style.display='block';
+          const words=['Happy','Birthday','Kutti','❤️'];
+          let i=0;
+          reveal.textContent=words[i];
+          reveal.classList.add('pulse');
+          const wordTick=()=>{
+            i++;
+            if(i<words.length){
+              reveal.textContent=words[i];
+              reveal.classList.remove('pulse');void reveal.offsetWidth;reveal.classList.add('pulse');
+              timer=setTimeout(wordTick,720);
+            }else{
+              timer=setTimeout(()=>{show(1);runTimeline()},1100);
+            }
+          };
+          timer=setTimeout(wordTick,700);
+        }
+      };
+      timer=setTimeout(tick,850);
+    }
+    else if(current===1){timer=setTimeout(()=>{show(2);runTimeline()},3600)}
+    else if(current===2){timer=setTimeout(()=>{show(3);runTimeline()},3100)}
+    else if(current===3){timer=setTimeout(()=>{show(4);runTimeline()},4200)}
+    else if(current===4){timer=setTimeout(()=>{show(5);runTimeline()},4300)}
+    else if(current===5){timer=setTimeout(()=>{show(6);runTimeline()},3000)}
+    else if(current===6){timer=setTimeout(()=>{show(0);runTimeline()},8500)}
+  }
+
+  function start(){
+    if(started)return;
+    started=true;show(0);runTimeline();
+  }
+
+  $('#app').addEventListener('click',e=>{
+    if(e.target.id==='skip'){
+      started=false;clearTimeout(timer);current=0;scenes.forEach(s=>s.classList.remove('active'));
+      show(0);setTimeout(()=>{started=true;runTimeline()},20);
+      return;
+    }
+    if(!started)start();
+  });
+
+  /* Start automatically; no audio means browser autoplay is allowed. */
+  start();
+})();
+</script>
+</body>
+</html>
